@@ -1,22 +1,20 @@
-import { kv } from '@vercel/kv';
 import { StoredCard, WeddingScene } from './types';
 
-export async function storeCard(id: string, scene: WeddingScene) {
-  console.log('[DEBUG] Storing card in KV:', id);
+const cards = new Map<string, StoredCard>();
 
-  const card: StoredCard = {
+export function storeCard(id: string, scene: WeddingScene): void {
+  console.log('[DEBUG] Storing card:', id);
+  cards.set(id, {
     id,
     scene,
     createdAt: new Date().toISOString(),
-  };
-
-  await kv.set(`card:${id}`, card);
+  });
 }
 
-export async function getCard(id: string): Promise<StoredCard | null> {
-  return (await kv.get<StoredCard>(`card:${id}`)) || null;
+export function getCard(id: string): StoredCard | null {
+  return cards.get(id) || null;
 }
 
-export async function cardExists(id: string): Promise<boolean> {
-  return Boolean(await kv.exists(`card:${id}`));
+export function cardExists(id: string): boolean {
+  return cards.has(id);
 }

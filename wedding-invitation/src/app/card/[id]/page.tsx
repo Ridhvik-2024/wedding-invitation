@@ -3,11 +3,11 @@ import CardRenderer from '@/components/CardRenderer';
 import { getCard } from '@/lib/storage';
 
 type PageProps = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
-export default async function CardPage({ params }: PageProps) {
-  const { id } = await params;
+export default function CardPage({ params }: PageProps) {
+  const { id } = params;
   const card = getCard(id);
 
   if (!card) {

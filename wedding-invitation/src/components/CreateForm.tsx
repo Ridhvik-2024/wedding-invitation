@@ -30,7 +30,7 @@ export default function CreateForm() {
       const data = await response.json();
 
       if (data.success) {
-        router.push(data.url);
+        router.push(`/card-preview?data=${encodeURIComponent(JSON.stringify(data.scene))}`);
       } else {
         setError(data.error || 'Failed to generate invitation');
       }
@@ -218,4 +218,5 @@ const styles: Record<string, React.CSSProperties> = {
     textAlign: 'center',
     fontStyle: 'italic',
   },
+
 };

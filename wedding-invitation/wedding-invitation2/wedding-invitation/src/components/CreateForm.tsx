@@ -43,7 +43,13 @@ export default function CreateForm() {
 
   return (
     <div style={styles.container}>
-      <form style={styles.form} onSubmit={handleSubmit}>
+      <form
+        style={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}
+      >
         <h2 style={styles.title}>Create Wedding Invitation</h2>
 
         <div style={styles.field}>
@@ -117,7 +123,7 @@ export default function CreateForm() {
 
         {error && <div style={styles.error}>{error}</div>}
 
-        <button type="submit" style={styles.button} disabled={loading}>
+       <button type="button" onClick={handleSubmit} style={styles.button} disabled={loading}>
           {loading ? 'Generating...' : 'Generate Invitation'}
         </button>
 
@@ -220,3 +226,4 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
 };
+
